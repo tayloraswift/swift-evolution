@@ -1,7 +1,7 @@
-# Proposal: Allow `@retroactive` to be applied to module-local protocols that imply external conformances 
+# Allow `@retroactive` to be applied to module-local protocols that imply external conformances 
 
 * Proposal: SE-NNNN
-* Author: Diana Ma
+* Author: [Diana Ma](https://github.com/tayloraswift)
 * Review Manager: TBD
 * Status: Pitch
 
