@@ -1,4 +1,4 @@
-# Proposal: Allow Module-Local Protocols to Abbreviate Retroactive Conformance with Protocol Composition Syntax
+# Proposal: Allow `@retroactive` to be applied to module-local protocols that imply external conformances 
 
 * Proposal: SE-NNNN
 * Author: Diana Ma
@@ -7,29 +7,37 @@
 
 ## Introduction
 
-Currently, when a protocol defined in a module ("module-local protocol") inherits or refines protocols declared outside the module, conforming an external type to this local protocol in a retroactive manner requires explicitly spelling out each external protocol conformance with the `@retroactive` attribute at the conformance site. Protocol composition syntax (e.g., `SomeProto & AnotherProto`) cannot be used to abbreviate these conformances. This proposal seeks to allow a single `@retroactive` attribute on a local protocol to suffice, as long as conforming to it implies all required retroactive conformances.
+Currently, when a protocol defined in the current module refines external protocols, conforming an external type to this local protocol requires spelling out each implied protocol conformance at the conformance site with the `@retroactive` attribute applied to the name of each implied protocol. Protocol composition syntax (e.g., `P & Q`) cannot be used to abbreviate these conformances. This proposal seeks to allow a single `@retroactive` attribute applied to a conformance to a local protocol to imply `@retroactive` conformances to all its external implied protocols.
 
 ## Motivation
 
-The current requirement to enumerate all external protocol conformances individually with `@retroactive` is verbose and error-prone. It also leads to boilerplate and obscures the relationship expressed by the module-local protocol, whose role is often to bundle a set of requirements (including external ones) under a meaningful name. Allowing a single `@retroactive` on the local protocol would streamline such retroactive conformances and make code more maintainable and expressive.
+The current requirement to enumerate all external protocol conformances individually with `@retroactive` is verbose and scales multiplicatively with the number of implied protocols and conformed types. Allowing a single `@retroactive` on the local protocol would streamline such retroactive conformances and make files with large lists of conforming types (“conformance pages”) more compact and expressive.
 
 ## Proposed Solution
 
-Permit attaching `@retroactive` to a conformance for a protocol defined in the same module, even if that protocol refines or inherits protocols defined outside the module. The compiler would recognize that conforming to the local protocol necessarily implies conformances to the external protocols, and would treat the conformance as retroactive for all such protocols.
+In this section, *module* may refer to a collection of modules treated as a resilence unit (e.g., can access `package`-visible declarations).
+
+We would permit attaching `@retroactive` to an unconditional conformance to a protocol defined in the same module, if that protocol refines protocols defined outside the module. The compiler would recognize that conforming to the local protocol necessarily implies conformances to the external protocols, and would treat the attribute as if it were applied to each of the implied external protocols. 
 
 ### Example
 
 **Today:**
+
 ```swift
-@retroactive extension ExternalType: ExternalProto1, ExternalProto2, LocalProto {}
+extension ExternalType: @retroactive ExternalProtocol1, @retroactive ExternalProtocol2, LocalProtocol {}
 ```
 Each external protocol must be listed with `@retroactive`.
 
 **With this proposal:**
+
 ```swift
-@retroactive extension ExternalType: LocalProto {}
+extension ExternalType: @retroactive LocalProtocol {}
 ```
-Where `LocalProto` (defined in this module) refines `ExternalProto1` and `ExternalProto2`, all required retroactive conformances are implied.
+
+Where `LocalProtocol` (defined in this module) refines `ExternalProtocol1` and `ExternalProtocol2`.
+
+```swift
+public protocol LocalProtocol: ExternalProtocol1, ExternalProtocol2 {}
 
 ## Detailed Design
 
