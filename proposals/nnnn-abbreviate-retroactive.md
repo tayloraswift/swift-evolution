@@ -7,7 +7,7 @@
 
 ## Introduction
 
-Currently, when a protocol defined in the current module refines external protocols, conforming an external type to this local protocol requires spelling out each implied protocol conformance at the conformance site with the `@retroactive` attribute applied to the name of each implied protocol. Protocol composition syntax (e.g., `P & Q`) cannot be used to abbreviate these conformances. This proposal seeks to allow a single `@retroactive` attribute applied to a conformance to a local protocol to imply `@retroactive` conformances to all its external implied protocols.
+Currently, when a protocol defined in the current module refines external protocols, conforming an external type to this local protocol requires spelling out each implied protocol conformance at the conformance site with the `@retroactive` attribute applied to the name of each implied protocol. This proposal seeks to allow a single `@retroactive` attribute applied to a conformance to a local protocol to imply `@retroactive` conformances to all its external implied protocols.
 
 ## Motivation
 
