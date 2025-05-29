@@ -11,7 +11,7 @@ Currently, when a protocol defined in the current module refines external protoc
 
 ## Motivation
 
-The current requirement to enumerate all external protocol conformances individually with `@retroactive` is verbose and scales multiplicatively with the number of implied protocols and conformed types. Allowing a single `@retroactive` on the local protocol would streamline such retroactive conformances and make files with large lists of conforming types (“conformance pages”) more compact and expressive.
+The current requirement to enumerate all external protocol conformances individually with `@retroactive` is verbose and scales multiplicatively with the number of implied protocols and conformed types. Allowing a single `@retroactive` on the name of the local protocol would streamline such retroactive conformances and make files with large lists of conforming types (“conformance pages”) more compact and expressive.
 
 ## Proposed Solution
 
