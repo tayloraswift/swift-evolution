@@ -53,8 +53,14 @@ This is an additive change and does not affect existing code.
 
 ## Alternatives Considered
 
-- **Status Quo:** Continue requiring explicit retroactive conformances for each external protocol. 
-- **Generalized Protocol Composition with @retroactive:** Require spelling out individual implied conformances, but allow a single `@retroactive` attribute to be applied to an entire protocol composition clause.
+### Status Quo
+
+Continue requiring explicit retroactive conformances for each external protocol. 
+
+### Protocol Composition with @retroactive** 
+
+Require spelling out individual implied conformances, but allow a single `@retroactive` attribute to be applied to an entire protocol composition clause.
+
 ## Acknowledgments
 
 Thanks to everyone who contributed feedback and motivation for this proposal.
