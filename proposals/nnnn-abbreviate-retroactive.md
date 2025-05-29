@@ -19,6 +19,13 @@ In this section, *module* may refer to a collection of modules treated as a resi
 
 We would permit attaching `@retroactive` to an unconditional conformance to a protocol defined in the same module, if that protocol refines protocols defined outside the module. The compiler would recognize that conforming to the local protocol necessarily implies conformances to the external protocols, and would treat the attribute as if it were applied to each of the implied external protocols. 
 
+## Detailed Design
+
+- The compiler will accept a single `@retroactive` attribute on a conformance to a protocol defined in the current module, if that protocol refines external protocols.
+- The conformance will be treated as retroactive for all implied external protocols.
+- The `@retroactive` attribute is only valid when the local protocol’s inheritance tree includes protocols external to the module.
+- Only unconditional conformances are eligible for this syntax.
+
 ### Example
 
 **Today:**
@@ -38,26 +45,16 @@ Where `LocalProtocol` (defined in this module) refines `ExternalProtocol1` and `
 
 ```swift
 public protocol LocalProtocol: ExternalProtocol1, ExternalProtocol2 {}
-
-## Detailed Design
-
-- The compiler will accept a single `@retroactive` attribute on a conformance to a protocol defined in the current module, even if that protocol refines/depends on external protocols.
-- The conformance will be treated as retroactive for all implied external protocols.
-- The rule applies only when the local protocol's inheritance tree includes protocols external to the module.
+```
 
 ## Impact on Existing Code
 
-This is an additive change and does not affect existing valid code. It makes certain retroactive conformances more concise and expressive.
+This is an additive change and does not affect existing code. 
 
 ## Alternatives Considered
 
-- **Status Quo:** Continue requiring explicit retroactive conformances for each external protocol. This is more verbose and less maintainable.
-- **Generalized Protocol Composition with @retroactive:** Allow protocol composition syntax (e.g., `@retroactive extension T: P1 & P2 {}`) to abbreviate multiple retroactive conformances. This is a broader change, but the current proposal focuses on module-local protocols for clarity and minimal impact.
-
-## Future Directions
-
-This approach could be extended to support protocol composition syntax directly with `@retroactive` in the future.
-
+- **Status Quo:** Continue requiring explicit retroactive conformances for each external protocol. 
+- **Generalized Protocol Composition with @retroactive:** Require spelling out individual implied conformances, but allow a single `@retroactive` attribute to be applied to an entire protocol composition clause.
 ## Acknowledgments
 
 Thanks to everyone who contributed feedback and motivation for this proposal.
