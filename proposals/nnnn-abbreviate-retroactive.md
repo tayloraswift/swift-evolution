@@ -3,7 +3,7 @@
 * Proposal: SE-NNNN
 * Author: [Diana Ma](https://github.com/tayloraswift)
 * Review Manager: TBD
-* Status: Pitch
+* Status: [Pitch](https://forums.swift.org/t/allow-retroactive-to-be-applied-to-module-local-protocols-that-imply-external-conformances/80208)
 
 ## Introduction
 
