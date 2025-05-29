@@ -57,7 +57,7 @@ This is an additive change and does not affect existing code.
 
 Continue requiring explicit retroactive conformances for each external protocol. 
 
-### Protocol Composition with @retroactive** 
+### Protocol Composition with @retroactive
 
 Require spelling out individual implied conformances, but allow a single `@retroactive` attribute to be applied to an entire protocol composition clause.
 
