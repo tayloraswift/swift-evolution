@@ -59,7 +59,7 @@ Continue requiring explicit retroactive conformances for each external protocol.
 
 ### Protocol Composition with @retroactive
 
-Require spelling out individual implied conformances, but allow a single `@retroactive` attribute to be applied to an entire protocol composition clause.
+Require spelling out individual implied conformances, but allow a single `@retroactive` attribute to be applied to an entire protocol composition clause. This has already been [implemented](https://github.com/swiftlang/swift/pull/81694/commits/1e35ffff68ae2e25fa7b8a475710db3eb5f646fe) in Swift 6.2.
 
 ## Acknowledgments
 
